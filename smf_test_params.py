@@ -10,9 +10,11 @@ class smf_test_params:
 
     def __init__(self,
                  prm_host_set, prm_thread_count, master_invoke, remote_pgm_dir,
-                 top_dirs, network_sync_dir, prm_slave, prm_permute_host_dirs):
+                 top_dirs, network_sync_dir, prm_slave, prm_permute_host_dirs,
+                 prm_output_json, pct_files_min):
 
         self.as_host = None
+        self.output_json = prm_output_json
         self.host_set = prm_host_set
         self.thread_count = prm_thread_count
         self.master_invoke = master_invoke
@@ -22,6 +24,7 @@ class smf_test_params:
             self.master_invoke.network_dir = network_sync_dir
         self.is_slave = prm_slave
         self.permute_host_dirs = prm_permute_host_dirs
+        self.pct_files_min = pct_files_min
 
         # calculate timeouts
         # make sure dirs is never zero
@@ -41,6 +44,7 @@ class smf_test_params:
         fmt += 'thread_count=%d remote_pgm_dir=%s'
         fmt += 'slave=%s permute_host_dirs=%s startup_timeout=%d '
         fmt += 'host_timeout=%d smf_invoke=%s '
+        fmt += 'json_output=%s pct_files_min=%f'
         return fmt % (
             str(self.as_host),
             str(self.host_set),
@@ -51,4 +55,6 @@ class smf_test_params:
             self.startup_timeout,
             self.host_startup_timeout,
             str(self.master_invoke),
+            str(self.output_json),
+            self.pct_files_min
             )

@@ -80,6 +80,8 @@ def usage(msg):  # call if CLI syntax error or invalid parameter
           dflts.pause_between_files)
     print('  --remote-pgm-dir directory-pathname              (default: %s)' %
           os.getcwd())
+    print('  --output-json                                    (default: %s)' %
+          bool2YN(False))
     sys.exit(NOTOK)
 
 
@@ -138,11 +140,12 @@ def parse():
     prm_remote_pgm_dir = os.path.abspath(os.path.dirname(sys.argv[0]))
     prm_top_dirs = None
     prm_network_sync_dir = None
+    prm_output_json = False
+    prm_pct_files_min = 70.0   # not yet a settable parameter, but it will be
 
     # parse command line
 
     argc = len(sys.argv)
-
     pass_on_prm_list = ''  # parameters passed to remote hosts if needed
     if argc == 1:
         print('''
@@ -249,6 +252,8 @@ for additional help add the parameter "--help" to the command
                     usage('host list must be non-empty when ' +
                           '--host-set option used')
             pass_on_prm = ''
+        elif prm == 'output-json':
+            prm_output_json = str2bool(val, rawprm)
         elif prm == 'remote-pgm-dir':
             prm_remote_pgm_dir = val
         elif prm == 'network-sync-dir':
@@ -299,7 +304,7 @@ for additional help add the parameter "--help" to the command
         size_distribution_string = 'random exponential'
 
     prm_list = [
-        ('hosts in test', '%s' % prm_host_set),
+        ('remote hosts in test', '%s' % prm_host_set),
         ('top test directory(s)', str(prm_top_dirs)),
         ('operation', inv.opname),
         ('files/thread', '%d' % inv.iterations),
@@ -324,6 +329,7 @@ for additional help add the parameter "--help" to the command
         ('verify read?', '%s' % bool2YN(inv.verify_read)),
         ('verbose?', inv.verbose),
         ('log to stderr?', inv.log_to_stderr),
+        ('JSON output format?', bool2YN(prm_output_json))
         ]
     if smallfile.xattr_installed:
         prm_list.extend([('ext.attr.size', '%d' % inv.xattr_size),
@@ -362,5 +368,7 @@ for additional help add the parameter "--help" to the command
         prm_network_sync_dir,
         prm_slave,
         prm_permute_host_dirs,
+        prm_output_json,
+        prm_pct_files_min
         )
     return params

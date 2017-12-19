@@ -269,6 +269,14 @@ class SmallfileWorkload:
     if tmp_dir is None:  # assume POSIX-like
         tmp_dir = '/var/tmp'
 
+    def get_tmp_dir:
+        return self.tmp_dir
+
+    thread_file_prefix = "smallfile_thread_ready"
+
+    def get_thread_file_prefix:
+        return self.thread_file_prefix
+
     # constant file size
     fsdistr_fixed = -1
     # a file size distribution type that results in a few files much larger
@@ -565,7 +573,7 @@ class SmallfileWorkload:
     # (i.e. it is ready to immediately begin generating workload)
 
     def gen_thread_ready_fname(self, tid, hostname=None):
-        return join(self.tmp_dir, 'thread_ready.' + tid + '.tmp')
+        return join(self.tmp_dir, self.thread_file_prefix + '.' + tid + '.tmp')
 
     # each host uses this to signal that it is
     # ready to immediately begin generating workload

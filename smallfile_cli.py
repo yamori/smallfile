@@ -269,6 +269,11 @@ def run_workload():
         return run_multi_host_workload(params)
     return multi_thread_workload.run_multi_thread_workload(params)
 
+    # Remove all 'smallfile_thread_ready*' files from tmp_dir
+    #s = smallfile.SmallfileWorkload()
+    #tmp_dir = s.get_tmp_dir
+
+
 
 # for future windows compatibility,
 # all global code (not contained in a class or subroutine)

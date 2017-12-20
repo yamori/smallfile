@@ -269,13 +269,13 @@ class SmallfileWorkload:
     if tmp_dir is None:  # assume POSIX-like
         tmp_dir = '/var/tmp'
 
-    def get_tmp_dir:
-        return self.tmp_dir
+    #def get_tmp_dir:
+    #    return self.tmp_dir
 
     thread_file_prefix = "smallfile_thread_ready"
 
-    def get_thread_file_prefix:
-        return self.thread_file_prefix
+    #def get_thread_file_prefix:
+    #    return self.thread_file_prefix
 
     # constant file size
     fsdistr_fixed = -1
